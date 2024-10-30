@@ -1,0 +1,56 @@
+import random
+
+def get_difficulty():
+    while True:
+        difficulty = input("Выберите уровень сложности (легкий, средний, сложный): ").strip().lower()
+        if difficulty == 'легкий':
+            return 10
+        elif difficulty == 'средний':
+            return 5
+        elif difficulty == 'сложный':
+            return 3
+        else:
+            print("Неверный ввод. Пожалуйста, выберите 'легкий', 'средний' или 'сложный'.")
+
+def play_game():
+    print("Добро пожаловать в игру 'Угадай число'!")
+    number_to_guess = random.randint(1, 100)
+    attempts_remaining = get_difficulty()
+    
+    print(f"\nЯ загадал число от 1 до 100. У вас {attempts_remaining} попыток, чтобы угадать его.")
+
+    while attempts_remaining > 0:
+        try:
+            guess = int(input("Введите ваше предположение: "))
+            attempts_remaining -= 1
+            
+            if guess < 1 or guess > 100:
+                print("Пожалуйста, введите число от 1 до 100.")
+                attempts_remaining += 1
+                continue
+            
+            if guess < number_to_guess:
+                print("Слишком низко!")
+            elif guess > number_to_guess:
+                print("Слишком высоко!")
+            else:
+                print(f"Поздравляем! Вы угадали число {number_to_guess}!")
+                return
+        except ValueError:
+            print("Пожалуйста, введите действительное число.")
+            attempts_remaining += 1
+        
+        print(f"У вас осталось {attempts_remaining} попыток.")
+
+    print(f"К сожалению, вы исчерпали все попытки. Загаданное число было {number_to_guess}.")
+
+def main():
+    while True:
+        play_game()
+        play_again = input("Хотите сыграть еще раз? (да/нет): ").strip().lower()
+        if play_again != 'да':
+            print("Спасибо за игру! До свидания!")
+            break
+
+if __name__ == "__main__":
+    main()
