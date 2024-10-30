@@ -1,5 +1,4 @@
 import random
-
 def get_difficulty():
     while True:
         difficulty = input("Выберите уровень сложности (легкий, средний, сложный): ").strip().lower()
